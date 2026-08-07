@@ -8,9 +8,9 @@ const Sky = () => {
   const [isNightMode, setIsNightMode] = useState(true);
 
   return (
-    <div className={`relative w-full h-screen overflow-hidden transition-colors duration-1000 ${isNightMode ? 'bg-cosmos-black' : 'bg-slate-900'}`}>
+    <div className={`relative w-full min-h-screen transition-colors duration-1000 ${isNightMode ? 'bg-cosmos-black' : 'bg-slate-900'}`}>
       {/* Cinematic Background - Mockup for 3D Night Sky Visualization */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-40">
+      <div className="absolute inset-0 flex items-center justify-center opacity-40 pointer-events-none">
         <div className="relative w-full h-full">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506318137071-a8e063b4bb8e?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center grayscale brightness-50" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-cosmos-black" />

@@ -7,6 +7,7 @@ import SatelliteTracker from './pages/SatelliteTracker';
 import SpaceWeatherCenter from './pages/SpaceWeatherCenter';
 import Sky from './pages/Sky';
 import MissionDetail from './pages/MissionDetail';
+import AiObservatory from './pages/AiObservatory';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="sky" element={<Sky />} />
         <Route path="missions" element={<MissionDetail />} />
         <Route path="missions/:id" element={<MissionDetail />} />
+        <Route path="ai-observatory" element={<AiObservatory />} />
       </Route>
     </Routes>
   );

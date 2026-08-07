@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { MISSION_DATA } from '../../mock/missionData';
+import { MISSION_DATA } from '../mock/missionData';
 import { Rocket, MapPin, Info, Calendar, AlertTriangle, CheckCircle2, Clock, XCircle } from "lucide-react";
 import { motion } from "framer-motion";
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
   Rocket, 
   Orbit, 
@@ -7,19 +6,20 @@ import {
   Image as ImageIcon, 
   Navigation, 
   Zap,
-  Search
+  Search,
+  Sparkles
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const navigation = [
   { name: 'Mission Control', path: '/', icon: <Zap size={20} /> },
   { name: 'Solar System', path: '/solar-system', icon: <Orbit size={20} /> },
-  { name: 'Satellites', path: '/satellites', icon: <Orbit size={20} /> },
+  { name: 'Satellites', path: '/satellites', icon: <Navigation size={20} /> },
   { name: 'Space Weather', path: '/space-weather', icon: <Waves size={20} /> },
-  { name: 'Astronomy', path: '/astronomy', icon: <Telescope size={20} /> },
+  { name: 'Astronomy', path: '/sky', icon: <Telescope size={20} /> },
   { name: 'NASA Explorer', path: '/nasa-explorer', icon: <ImageIcon size={20} /> },
   { name: 'Missions', path: '/missions', icon: <Rocket size={20} /> },
-  { name: 'AI Observatory', path: '/ai-observatory', icon: <Navigation size={20} /> },
+  { name: 'AI Observatory', path: '/ai-observatory', icon: <Sparkles size={20} /> },
 ];
 
 const Sidebar = () => {
