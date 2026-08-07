@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { searchData } from '../../services/search';
 import { X, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const GlobalSearch = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState({ planets: [], missions: [], imagery: [] });
-  const navigation = useNavigation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (query.length > 2) {
@@ -28,9 +28,9 @@ const GlobalSearch = ({ isOpen, onClose }) => {
 
   const handleSearch = (item, type) => {
     if (type === 'planet') {
-      navigation.push(`/solar-system`);
+      navigate(`/solar-system`);
     } else if (type === 'mission') {
-      navigation.push(`/missions/${item.id}`);
+      navigate(`/missions/${item.id}`);
     } else {
       console.log('Navigation to image:', item);
     }

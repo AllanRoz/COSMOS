@@ -11,20 +11,13 @@ const OrbitLine = ({ distance, color = "#ffffff" }) => {
     return pts;
   }, [distance]);
 
-  const positions = new Float32Array(points.flatMap(p => [p.x, p.y, p.z]));
+  const positions = useMemo(() => new Float32Array(points.flatMap(p => [p.x, p.y, p.z])), [points]);
+
+  const geometry = useMemo(() => new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(positions, 3)), [positions]);
+  const material = useMemo(() => new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.2 }), [color]);
 
   return (
-    <lineSegments>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes|position"
-          count={points.length}
-          array={positions}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <lineBasicMaterial color={color} transparent opacity={0.2} />
-    </lineSegments>
+    <lineSegments geometry={geometry} material={material} />
   );
 };
 

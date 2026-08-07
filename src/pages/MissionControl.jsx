@@ -29,8 +29,8 @@ const Card = ({ title, children, icon: Icon, className = "" }) => (
 
 const MissionControl = () => {
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <header className="mb-10">
+    <div className="p-4 md:p-8 max-w-7xl mx-auto">
+      <header className="mb-6 md:mb-10">
         <motion.h1 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
