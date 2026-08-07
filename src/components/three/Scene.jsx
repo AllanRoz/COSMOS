@@ -19,6 +19,7 @@ const Scene = ({ onPlanetSelect }) => {
             <button 
               onClick={() => setPaused(!paused)}
               className="p-2 bg-cosmos-accent text-cosmos-black rounded hover:bg-white transition-colors"
+              aria-label={paused ? "Play simulation" : "Pause simulation"}
             >
               {paused ? 'Play' : 'Pause'}
             </button>
@@ -30,6 +31,7 @@ const Scene = ({ onPlanetSelect }) => {
               value={simSpeed} 
               onChange={(e) => setSimSpeed(parseFloat(e.target.value))}
               className="w-24"
+              aria-label="Simulation speed"
             />
             <span className="text-sm font-bold">{simSpeed.toFixed(1)}x</span>
           </div>
@@ -37,11 +39,17 @@ const Scene = ({ onPlanetSelect }) => {
       </div>
       
       <Canvas>
-        <PerspectiveCamera makeDefault position={[0, 50, 100]} />
-        <OrbitControls makeDefault />
+        <PerspectiveCamera makeDefault position={[0, 50, 100]} fov={45} />
+        <OrbitControls 
+          makeDefault 
+          dampingFactor={0.05}
+          enablePan={false}
+          maxDistance={200}
+          minDistance={20}
+        />
         
-        <ambientLight intensity={0.2} />
-        <pointLight position={[0, 0, 0]} intensity={2} color="#ffcc00" />
+        <ambientLight intensity={0.3} />
+        <pointLight position={[0, 0, 0]} intensity={2.5} color="#ffcc00" castShadow={false} />
         
         <Stars />
         <Sun />

@@ -7,9 +7,12 @@ import {
   Navigation, 
   Zap,
   Search,
-  Sparkles
+  Sparkles,
+  Heart
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import GlobalSearch from './GlobalSearch';
+import { useState } from 'react';
 
 const navigation = [
   { name: 'Mission Control', path: '/', icon: <Zap size={20} /> },
@@ -19,11 +22,13 @@ const navigation = [
   { name: 'Astronomy', path: '/sky', icon: <Telescope size={20} /> },
   { name: 'NASA Explorer', path: '/nasa-explorer', icon: <ImageIcon size={20} /> },
   { name: 'Missions', path: '/missions', icon: <Rocket size={20} /> },
+  { name: 'My Cosmos', path: '/my-cosmos', icon: <Heart size={20} /> },
   { name: 'AI Observatory', path: '/ai-observatory', icon: <Sparkles size={20} /> },
 ];
 
 const Sidebar = () => {
   const location = useLocation();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
     <aside className="w-64 border-r border-white/10 bg-cosmos-slate flex flex-col">
@@ -50,11 +55,16 @@ const Sidebar = () => {
       </nav>
 
       <div className="p-4 border-t border-white/10">
-        <div className="flex items-center gap-2 text-white/40 text-xs">
+        <button 
+          onClick={() => setIsSearchOpen(true)}
+          className="flex items-center gap-2 w-full text-white/40 hover:text-white transition-colors"
+        >
           <Search size={14} />
-          <span>Global Search</span>
-        </div>
+          <span className="text-xs">Global Search</span>
+        </button>
       </div>
+      
+      <GlobalSearch isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </aside>
   );
 };

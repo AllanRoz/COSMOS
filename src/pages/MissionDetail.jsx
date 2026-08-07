@@ -1,12 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { MISSION_DATA } from '../mock/missionData';
-import { Rocket, MapPin, Info, Calendar, AlertTriangle, CheckCircle2, Clock, XCircle } from "lucide-react";
+import { Rocket, MapPin, Info, Calendar, AlertTriangle, CheckCircle2, Clock, XCircle, Heart } from "lucide-react";
 import { motion } from "framer-motion";
+import { useFavorites } from '../context/FavoritesContext';
 
 const MissionDetail = () => {
   const { id } = useParams();
   const mission = MISSION_DATA.find(m => m.id === id);
+  const { isFavorite, toggleFavorite } = useFavorites();
 
   if (!mission) {
     return (
@@ -17,7 +19,7 @@ const MissionDetail = () => {
     );
   }
 
-  const isUpcoming = new Date(mission.launchDate) > new Date();
+  const isFav = isFavorite(mission.id);
 
   return (
     <div className="p-8 max-w-4xl mx-auto">
@@ -25,7 +27,15 @@ const MissionDetail = () => {
         <button className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/60">
           <XCircle size={24} />
         </button>
-        <h1 className="text-5xl font-bold tracking-tighter">{mission.name}</h1>
+        <div className="flex items-center gap-4">
+          <h1 className="text-5xl font-bold tracking-tighter">{mission.name}</h1>
+          <button 
+            onClick={() => toggleFavorite(mission.id)}
+            className={`p-2 rounded-full transition-colors ${isFav ? 'bg-cosmos-accent text-cosmos-black' : 'bg-white/5 text-white/60 hover:bg-white/10'}`}
+          >
+            <Heart size={24} fill={isFav ? "currentColor" : "none"} />
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

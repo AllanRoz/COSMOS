@@ -1,28 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PLANET_DATA } from '../constants/planetData';
 import { MISSION_DATA } from '../mock/missionData';
 import { Navigation } from 'lucide-react';
+import { useFavorites } from '../context/FavoritesContext';
 
 const MyCosmos = () => {
-  const [favorites, setFavorites] = useState(() => {
-    const saved = localStorage.getItem('cosmos_favorites');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { favorites, isFavorite } = useFavorites();
 
-  const toggleFavorite = (item) => {
-    const isFav = favorites.some(f => f.id === item.id || f.name === item.name);
-    if (isFav) {
-      setFavorites(favorites.filter(f => f.id !== item.id && f.name !== item.name));
-    } else {
-      setFavorites([...favorites, item]);
-    }
-    localStorage.setItem('cosmos_favorites', JSON.stringify(favorites));
-  };
-
-  const planetFavorites = Object.values(PLANET_DATA).filter(p => favorites.some(f => f.name === p.name));
-  const missionFavorites = MISSION_DATA.filter(m => favorites.some(f => f.id === m.id));
+  const planetFavorites = Object.values(PLANET_DATA).filter(p => isFavorite(p.name));
+  const missionFavorites = MISSION_DATA.filter(m => isFavorite(m.id));
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
@@ -39,10 +27,15 @@ const MyCosmos = () => {
           {planetFavorites.length > 0 ? (
             <div className="grid grid-cols-2 gap-4">
               {planetFavorites.map(p => (
-                <div key={p.name} className="bg-cosmos-slate p-4 rounded-xl border border-white/5">
+                <motion.div 
+                  key={p.name} 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-cosmos-slate p-4 rounded-xl border border-white/5"
+                >
                   <p className="font-bold">{p.name}</p>
                   <p className="text-xs text-white/40">{p.stats.diameter}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           ) : (
@@ -57,10 +50,15 @@ const MyCosmos = () => {
           <div className="space-y-4">
             {missionFavorites.length > 0 ? (
               missionFavorites.map(m => (
-                <div key={m.id} className="bg-cosmos-slate p-4 rounded-xl border border-white/5">
+                <motion.div 
+                  key={m.id} 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-cosmos-slate p-4 rounded-xl border border-white/5"
+                >
                   <p className="font-bold">{m.name}</p>
                   <p className="text-xs text-white/40">{m.status}</p>
-                </div>
+                </motion.div>
               ))
             ) : (
               <p className="text-white/40 text-sm">No favorite missions yet.</p>

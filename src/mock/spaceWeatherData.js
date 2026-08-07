@@ -1,23 +1,17 @@
 export const SPACE_WEATHER_DATA = {
+  geomagneticActivity: [40, 70, 50, 90, 60, 30, 80, 95, 40, 60, 80, 85],
   solarActivity: {
-    index: 145,
+    index: 6,
     level: "Moderate",
-    description: "Increased solar wind pressure detected from recent Coronal Mass Ejection.",
-    statusColor: "#fbbf24", // Amber
+    description: "Solar flares observed in active regions. Geomagnetic storms expected."
   },
-  geomagneticActivity: {
-    kIndex: 5,
-    description: "Minor geomagnetic disturbances. Possible auroral activity in high latitudes.",
-    statusColor: "#3b82f6", // Blue
-  },
-  solarFlares: [
-    { id: 1, type: "M-Class", date: "2026-08-07 14:22 UTC", magnitude: "M1.2", region: "AR3142" },
-    { id: 2, type: "C-Class", date: "2026-08-07 12:10 UTC", magnitude: "C4.5", region: "AR3141" },
-  ],
   auroraProbability: {
     probability: 65,
-    region: "High North / Low South",
-    description: "Optimal conditions for viewing in Alaska, Northern Canada, and Scandinavia.",
+    description: "High probability of auroras in high-latitude regions due to increased solar wind."
   },
-  lastUpdate: "Just now",
+  solarFlares: [
+    { id: 1, type: "M-Class Flare", magnitude: "M8.7", date: "2024-08-06 14:20 UTC", region: "AR3664" },
+    { id: 2, type: "X-Class Flare", magnitude: "X1.2", date: "2024-08-07 02:45 UTC", region: "AR3664" },
+    { id: 3, type: "M-Class Flare", magnitude: "M5.4", date: "2024-08-08 11:15 UTC", region: "AR3664" }
+  ]
 };

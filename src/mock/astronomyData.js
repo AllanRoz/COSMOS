@@ -1,23 +1,35 @@
 export const ASTRONOMY_DATA = {
-  planets: [
-    { name: "Mars", visibility: "High", magnitude: "-1.5", color: "#e27b58" },
-    { name: "Jupiter", visibility: "Very High", magnitude: "-2.5", color: "#d39c7e" },
-    { name: "Saturn", visibility: "Medium", magnitude: "+0.6", color: "#c5ab7b" },
-    { name: "Venus", visibility: "Very High", magnitude: "-4.0", color: "#e3bb76" },
-  ],
+  tonight: {
+    moonPhase: "Waxing Gibbous",
+    moonRise: "10:45 PM",
+    moonSet: "12:30 PM",
+    sunrise: "6:12 AM",
+    sunset: "7:45 PM",
+    visiblePlanets: ["Mars", "Jupiter", "Saturn"],
+    meteorShowers: "None currently",
+    majorEvents: "No major events tonight",
+    location: "Current Location"
+  },
   moon: {
     phase: "Waxing Gibbous",
-    rise: "04:30 AM",
-    set: "11:20 PM",
-    illumination: "85%",
+    rise: "10:45 PM",
+    set: "12:30 PM"
   },
+  planets: [
+    { name: "Mars", visibility: "High" },
+    { name: "Jupiter", visibility: "Medium" },
+    { name: "Saturn", visibility: "Low" },
+    { name: "Venus", visibility: "High (Evening)" }
+  ],
   events: [
-    { name: "Perseid Meteor Shower", date: "August 12-13", peak: "03:00 AM", type: "Meteor Shower" },
-    { name: "Partial Lunar Eclipse", date: "September 15", type: "Eclipse" },
+    { name: "Perseids Meteor Shower", type: "Meteor Shower", date: "August 12-13" },
+    { name: "Lunar Eclipse", type: "Eclipse", date: "September 21" }
   ],
   constellations: [
     { name: "Orion", description: "The Hunter", region: "Winter Sky" },
+    { name: "Ursa Major", description: "The Great Bear", region: "Northern Sky" },
     { name: "Cassiopeia", description: "The Queen", region: "Northern Sky" },
-    { name: "Ursa Major", description: "Great Bear", region: "Northern Sky" },
-  ],
+    { name: "Cygnus", description: "The Swan", region: "Summer Sky" },
+    { name: "Lyra", description: "The Lyre", region: "Summer Sky" }
+  ]
 };

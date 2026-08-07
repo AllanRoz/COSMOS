@@ -8,7 +8,7 @@ const Sky = () => {
   const [isNightMode, setIsNightMode] = useState(true);
 
   return (
-    <div className={`relative w-full min-h-screen transition-colors duration-1000 ${isNightMode ? 'bg-cosmos-black' : 'bg-slate-900'}`}>
+    <div className={`relative w-full min-h-screen transition-colors duration-1000 ${isNightMode ? 'bg-cosmos-black' : 'bg-slate-900'} overflow-y-auto`}>
       {/* Cinematic Background - Mockup for 3D Night Sky Visualization */}
       <div className="absolute inset-0 flex items-center justify-center opacity-40 pointer-events-none">
         <div className="relative w-full h-full">
@@ -17,7 +17,7 @@ const Sky = () => {
         </div>
       </div>
 
-      <div className="relative z-10 p-8 max-w-7xl mx-auto h-full flex flex-col">
+      <div className="relative z-10 p-8 max-w-7xl mx-auto">
         <header className="mb-8 flex justify-between items-start">
           <div>
             <motion.h1 
@@ -32,6 +32,7 @@ const Sky = () => {
           <button 
             onClick={() => setIsNightMode(!isNightMode)}
             className="bg-white/10 p-4 rounded-full border border-white/20 hover:bg-white/20 transition-all"
+            aria-label="Toggle Night Mode"
           >
             <Star className={isNightMode ? "text-yellow-400" : "text-white"} size={24} />
           </button>
@@ -40,14 +41,14 @@ const Sky = () => {
         <main className="flex-1 flex flex-col gap-8">
           <TonightSummary />
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="bg-cosmos-slate/80 p-8 rounded-3xl border border-white/10 backdrop-blur-md">
               <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
                 <Telescope className="text-cosmos-accent" /> Constellation Guide
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {ASTRONOMY_DATA.constellations.map((c, i) => (
-                  <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-cosmos-accent/50 transition-all">
+                  <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-cosmos-accent/50 transition-all" tabIndex={0}>
                     <p className="font-bold text-lg">{c.name}</p>
                     <p className="text-sm text-white/40">{c.description}</p>
                     <p className="text-[10px] text-cosmos-accent mt-2">{c.region}</p>

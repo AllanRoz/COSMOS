@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Send, Sparkles, Loader2, Info } from 'lucide-react';
 
-const Orbit = () => {
+const AiObservatory = () => {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
     { role: 'assistant', content: "Greetings, explorer. I am ORBIT, your AI astronomy assistant. How can I help you navigate the cosmos today?" }
@@ -26,8 +26,6 @@ const Orbit = () => {
     setIsLoading(true);
 
     try {
-      // In a production environment, this would call an actual LLM API.
-      // For now, we have a mock service that simulates a thinking process.
       const response = await mockAiResponse(input);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
     } catch (err) {
@@ -37,7 +35,6 @@ const Orbit = () => {
     }
   };
 
-  // Mock AI logic for demonstration
   const mockAiResponse = async (query) => {
     await new Promise(resolve => setTimeout(resolve, 1200));
     const q = query.toLowerCase();
@@ -123,4 +120,4 @@ const Orbit = () => {
   );
 };
 
-export default Orbit;
+export default AiObservatory;

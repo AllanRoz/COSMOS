@@ -1,35 +1,27 @@
 export const dashboardData = {
-  currentTime: new Date().toISOString(),
-  moonPhase: 'Waxing Gibbous',
-  distanceToMoon: '384,400 km',
-  distanceToSun: '149.6 million km',
-  issLocation: {
-    lat: 45.23,
-    lng: -122.81,
-    altitude: '410 km',
-    velocity: '7.66 km/s',
-  },
-  nextIssPass: 'In 4 hours, 12 minutes',
+  currentTime: new Date(),
+  moonPhase: "Waxing Gibbous",
+  distanceToMoon: "384,400 km",
   solarActivity: {
-    level: 'Moderate',
-    index: 145,
-    description: 'Solar flares detected in region 4',
+    level: "Moderate",
+    description: "Solar flares observed in active regions. Geomagnetic storms expected."
   },
+  issLocation: {
+    lat: "42.34",
+    lng: "-71.22",
+    altitude: "420 km",
+    velocity: "7.66 km/s"
+  },
+  nextIssPass: "Tonight at 11:45 PM",
   upcomingLaunch: {
-    id: 'LS-2026',
-    name: 'Artemis III',
-    provider: 'NASA',
-    date: '2026-10-12',
-    status: 'Scheduled',
+    name: "Starship Flight 6",
+    provider: "SpaceX",
+    date: "2024-12-05",
+    status: "Scheduled"
   },
-  nearEarthObjects: [
-    { id: 1, name: '2024 AB', diameter: '450m', velocity: '12.4 km/s', hazard: true },
-    { id: 2, name: '2024 BX', diameter: '120m', velocity: '10.1 km/s', hazard: false },
-    { id: 3, name: '2024 CY', diameter: '200m', velocity: '15.2 km/s', hazard: true },
-  ],
   apod: {
-    title: 'The Pillars of Creation',
-    url: 'https://images.nasa.gov/apod/placeholder.jpg',
-    explanation: 'A stunning view of the Pillars of Creation in the Eagle Nebula.',
+    url: "https://images-assets.nasa.gov/image-asset-data/image/PIA2463331.jpg",
+    title: "The Pillars of Creation",
+    explanation: "The Pillars of Creation are among the astronomer's most-loved objects, and they are among the most-photographed images ever taken by the Hubble Space Telescope."
   }
 };
