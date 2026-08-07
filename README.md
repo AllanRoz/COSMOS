@@ -5,7 +5,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/YOUR_USERNAME/COSMOS">
+  <a href="https://github.com/AllanRoz/COSMOS">
     <img src="public/cosmos-logo.png" alt="Logo" width="120" height="120">
   </a>
 
@@ -16,13 +16,14 @@
     <br />
     <a href="https://YOUR-DEMO-URL.com">View Demo</a>
     &middot;
-    <a href="https://github.com/YOUR_USERNAME/COSMOS/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/AllanRoz/COSMOS/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
-    <a href="https://github.com/YOUR_USERNAME/COSMOS/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/AllanRoz/COSMOS/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 [![Product Screenshot][product-screenshot]](https://YOUR-DEMO-URL.com/)
@@ -33,44 +34,46 @@ Unlike generic space websites, COSMOS focuses on an information-dense, polished 
 
 ### Key Features
 
-* **Mission Control Dashboard:** A real-time command center displaying current UTC time, Moon phases, ISS telemetry, and solar activity levels.
-* **Interactive Solar System:** A 3D exploration environment using Three.js with orbital paths, planet selection, and simulated orbital mechanics.
-* **Live Satellite Tracker:** A real-time globe visualization tracking the International Space Station (ISS) and major orbital assets.
-* **Space Weather Center:** Scientific monitoring of solar flares, geomagnetic activity (K-Index), and auroral probability.
-* **NASA Explorer:** A curated gallery of the Astronomy Picture of the Day (APOD), Mars rover imagery, and the NASA image library.
-* **AI Observatory (ORBIT):** A context-aware AI assistant capable of answering complex astronomical questions and analyzing current celestial data.
-* **Interactive Sky Map:** A dedicated "Tonight" mode to visualize visible planets, moon positions, and upcoming astronomical events.
-* **Global Search & Favorites:** A fast, unified search across planets, missions, and imagery, with a "My Cosmos" section for persistent favorites.
+- **Mission Control Dashboard:** A real-time command center displaying current UTC time, Moon phases, ISS telemetry, and solar activity levels.
+- **Interactive Solar System:** A 3D exploration environment using Three.js with orbital paths, planet selection, and simulated orbital mechanics.
+- **Live Satellite Tracker:** A real-time globe visualization tracking the International Space Station (ISS) and major orbital assets.
+- **Space Weather Center:** Scientific monitoring of solar flares, geomagnetic activity (K-Index), and auroral probability.
+- **NASA Explorer:** A curated gallery of the Astronomy Picture of the Day (APOD), Mars rover imagery, and the NASA image library.
+- **AI Observatory (ORBIT):** A context-aware AI assistant capable of answering complex astronomical questions and analyzing current celestial data.
+- **Interactive Sky Map:** A dedicated "Tonight" mode to visualize visible planets, moon positions, and upcoming astronomical events.
+- **Global Search & Favorites:** A fast, unified search across planets, missions, and imagery, with a "My Cosmos" section for persistent favorites.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
-* [![React][React.js]][React-url]
-* [![Vite][Vite.dev]][Vite-url]
-* [![TailwindCSS][Tailwind.css]][Tailwind-url]
-* [![Three.js][Three.js.url]][Three-url]
-* [![Framer Motion][Framer Motion]][Framer-url]
-* [![Lucide React][Lucide.url]][Lucide-url]
+- [![React][React.js]][React-url]
+- [![Vite][Vite.dev]][Vite-url]
+- [![TailwindCSS][Tailwind.css]][Tailwind-url]
+- [![Three.js][Three.js.url]][Three-url]
+- [![Framer Motion][Framer Motion]][Framer-url]
+- [![Lucide React][Lucide.url]][Lucide-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 Follow these steps to set up and run a local copy of the project on your machine.
 
 ### Prerequisites
 
-* npm
+- npm
   ```sh
   npm install npm@latest -g
   ```
 
 ### Installation and running a React app locally
+
 1. Clone the repo
    ```sh
-   git clone https://github.com/YOUR_USERNAME/COSMOS.git
+   git clone https://github.com/AllanRoz/COSMOS.git
    ```
 2. Change into the project directory
    ```sh
@@ -88,6 +91,7 @@ Follow these steps to set up and run a local copy of the project on your machine
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
@@ -95,17 +99,19 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
+
 ## Contact
 
-[Your Name] - [Your Email]
+Allan Rozario - arozadev@gmail.com
 
-Project Link: [https://github.com/YOUR_USERNAME/COSMOS/](https://github.com/YOUR_USERNAME/COSMOS/)
+Project Link: [https://github.com/AllanRoz/COSMOS/](https://github.com/AllanRoz/COSMOS/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
+
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/YOUR_USERNAME/COSMOS/blob/main/LICENSE
+[license-url]: https://github.com/AllanRoz/COSMOS/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/YOUR_LINK/
 [product-screenshot]: public/cosmos-screenshot.png
