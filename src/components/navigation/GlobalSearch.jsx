@@ -48,7 +48,10 @@ const GlobalSearch = ({ isOpen, onClose }) => {
           className="fixed inset-0 bg-cosmos-black z-50 flex items-center justify-center p-4"
           onClick={(e) => e.stopPropagation()}
         >
-          <div 
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
             className="w-full max-w-3xl bg-cosmos-slate border border-white/10 rounded-3xl p-8 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
@@ -75,14 +78,14 @@ const GlobalSearch = ({ isOpen, onClose }) => {
                   <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Planets</h3>
                   <div className="grid grid-cols-1 gap-3">
                     {results.planets.map(p => (
-                      <div 
-                        key={p.name} 
-                        className="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 cursor-pointer transition-colors"
+                      <button
+                        key={p.name}
+                        className="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 cursor-pointer transition-colors text-left"
                         onClick={() => handleSearch(p, 'planet')}
                       >
                         <span className="font-bold">{p.name}</span>
                         <ChevronRight size={16} />
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -93,14 +96,14 @@ const GlobalSearch = ({ isOpen, onClose }) => {
                   <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Missions</h3>
                   <div className="grid grid-cols-1 gap-3">
                     {results.missions.map(m => (
-                      <div 
-                        key={m.id} 
-                        className="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 cursor-pointer transition-colors"
+                      <button
+                        key={m.id}
+                        className="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 cursor-pointer transition-colors text-left"
                         onClick={() => handleSearch(m, 'mission')}
                       >
                         <span className="font-bold">{m.name}</span>
                         <ChevronRight size={16} />
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -111,14 +114,14 @@ const GlobalSearch = ({ isOpen, onClose }) => {
                   <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Imagery</h3>
                   <div className="grid grid-cols-1 gap-3">
                     {results.imagery.map((img, i) => (
-                      <div 
-                        key={i} 
-                        className="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 cursor-pointer transition-colors"
+                      <button
+                        key={i}
+                        className="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 cursor-pointer transition-colors text-left"
                         onClick={() => handleSearch(img, 'image')}
                       >
                         <span className="font-bold">{img.title}</span>
                         <ChevronRight size={16} />
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -128,9 +131,9 @@ const GlobalSearch = ({ isOpen, onClose }) => {
                 <p className="text-white/40 text-center py-10">No results found for "{query}"</p>
               )}
             </div>
-          </div>
+          </motion.div>
         </motion.div>
-      </div>
+      )}
     </AnimatePresence>
   );
 };
