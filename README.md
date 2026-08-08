@@ -50,9 +50,9 @@ Unlike generic space websites, COSMOS focuses on an information-dense, polished 
 - [![React][React.js]][React-url]
 - [![Vite][Vite.dev]][Vite-url]
 - [![TailwindCSS][Tailwind.css]][Tailwind-url]
-- [![Three.js][Three.js.url]][Three-url]
+- [![Three.js][Three.js]][Three-url]
 - [![Framer Motion][Framer Motion]][Framer-url]
-- [![Lucide React][Lucide.url]][Lucide-url]
+- [![Lucide][Lucide]][Lucide-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -121,9 +121,9 @@ Project Link: [https://github.com/AllanRoz/COSMOS/](https://github.com/AllanRoz/
 [Vite-url]: https://vite.dev/
 [Tailwind.css]: https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white
 [Tailwind-url]: https://tailwindcss.com/
-[Three.js.url]: https://threejs.org/
+[Three.js]: https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white
 [Three-url]: https://threejs.org/
 [Framer Motion]: https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white
 [Framer-url]: https://www.framer.com/motion/
-[Lucide.url]: https://lucide.dev/
+[Lucide]: https://img.shields.io/badge/Lucide-F56565?style=for-the-badge&logo=lucide&logoColor=white
 [Lucide-url]: https://lucide.dev/
