@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/AllanRoz/COSMOS">
-    <img src="public/cosmos-logo.png" alt="Logo" width="120" height="120">
+    <img src="public/cosmos.svg" alt="Logo" width="120" height="120">
   </a>
 
   <h3 align="center">COSMOS</h3>
@@ -114,7 +114,7 @@ Project Link: [https://github.com/AllanRoz/COSMOS/](https://github.com/AllanRoz/
 [license-url]: https://github.com/AllanRoz/COSMOS/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/YOUR_LINK/
-[product-screenshot]: public/cosmos-screenshot.png
+[product-screenshot]: public/cosmos.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Vite.dev]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
