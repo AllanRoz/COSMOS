@@ -14,7 +14,7 @@
   <p align="center">
     An interactive space exploration platform for celestial discovery and data visualization.
     <br />
-    <a href="https://YOUR-DEMO-URL.com">View Demo</a>
+    <a href="http://github.allanrozario.com/COSMOS/">View Demo</a>
     &middot;
     <a href="https://github.com/AllanRoz/COSMOS/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
@@ -26,7 +26,7 @@
 
 ## About The Project
 
-[![Product Screenshot][product-screenshot]](https://YOUR-DEMO-URL.com/)
+[![Product Screenshot][product-screenshot]](http://github.allanrozario.com/COSMOS/)
 
 **COSMOS** is a high-fidelity web application designed to feel like a modern astronomical observatory. It combines scientific data visualization with interactive exploration, allowing users to track spacecraft, monitor space weather, explore the solar system, and interact with an AI astronomy assistant.
 
