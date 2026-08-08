@@ -50,9 +50,9 @@ Unlike generic space websites, COSMOS focuses on an information-dense, polished 
 - [![React][React.js]][React-url]
 - [![Vite][Vite.dev]][Vite-url]
 - [![TailwindCSS][Tailwind.css]][Tailwind-url]
-- [![Three.js][Three.js.url]][Three-url]
+- [![Three.js][Three.js]][Three-url]
 - [![Framer Motion][Framer Motion]][Framer-url]
-- [![Lucide React][Lucide.url]][Lucide-url]
+- [![Lucide][Lucide]][Lucide-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
