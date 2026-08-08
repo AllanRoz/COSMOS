@@ -20,7 +20,7 @@ export const dashboardData = {
     status: "Scheduled"
   },
   apod: {
-    url: "https://images-assets.nasa.gov/image-asset-data/image/PIA2463331.jpg",
+    url: "https://www.nasa.gov/wp-content/uploads/2023/03/pillars_of_creation.jpg",
     title: "The Pillars of Creation",
     explanation: "The Pillars of Creation are among the astronomer's most-loved objects, and they are among the most-photographed images ever taken by the Hubble Space Telescope."
   }

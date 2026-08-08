@@ -100,24 +100,42 @@ const MissionCard = ({ mission }) => {
 const Missions = () => {
   const [missions, setMissions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [filter, setFilter] = useState('All');
 
   useEffect(() => {
-    missionsService.getAllMissions().then(data => {
-      setMissions(data);
-      setLoading(false);
-    });
+    missionsService.getAllMissions()
+      .then(data => {
+        console.log('Missions data:', data);
+        setMissions(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error loading missions:', err);
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
   const filteredMissions = filter === 'All' 
     ? missions 
-    : missions.filter(m => m.status === filter.replace(' ', '_'));
+    : missions.filter(m => m.status === filter);
 
   if (loading) return (
     <div className="h-screen flex items-center justify-center">
       <div className="flex flex-col items-center gap-4">
         <Rocket className="animate-bounce text-cosmos-accent" size={48} />
         <p className="text-white/40">Synchronizing mission archives...</p>
+      </div>
+    </div>
+  );
+
+  if (error) return (
+    <div className="p-8 max-w-7xl mx-auto">
+      <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-6 text-center">
+        <AlertTriangle className="mx-auto text-red-400 mb-4" size={48} />
+        <h2 className="text-xl font-bold text-red-400 mb-2">Failed to Load Missions</h2>
+        <p className="text-white/60">{error}</p>
       </div>
     </div>
   );
@@ -153,9 +171,16 @@ const Missions = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <AnimatePresence>
-          {filteredMissions.map(m => (
-            <MissionCard key={m.id} mission={m} />
-          ))}
+          {filteredMissions.length > 0 ? (
+            filteredMissions.map(m => (
+              <MissionCard key={m.id} mission={m} />
+            ))
+          ) : (
+            <div className="col-span-full py-20 text-center">
+              <Rocket className="mx-auto text-white/20 mb-4" size={48} />
+              <p className="text-white/40">No missions found for this filter.</p>
+            </div>
+          )}
         </AnimatePresence>
       </div>
     </div>

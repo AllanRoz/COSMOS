@@ -6,7 +6,7 @@ const API_KEY = import.meta.env.VITE_NASA_API_KEY || 'DEMO_KEY';
 const client = axios.create({
   baseURL: BASE_URL,
   params: {
-    apiKey: API_KEY,
+    api_key: API_KEY,
   },
 });
 

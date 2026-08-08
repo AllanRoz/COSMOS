@@ -3,11 +3,13 @@ import Scene from '../components/three/Scene';
 import { PLANET_DATA } from '../constants/planetData';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Heart, Info, Zap, Ruler } from 'lucide-react';
+import { useFavorites } from '../context/FavoritesContext';
 
 const SolarSystem = () => {
   const [selectedPlanetId, setSelectedPlanetId] = useState(null);
   const [compareMode, setCompareMode] = useState(false);
   const [compareIds, setCompareIds] = useState([]);
+  const { isFavorite, toggleFavorite } = useFavorites();
 
   const selectedPlanet = selectedPlanetId ? PLANET_DATA[selectedPlanetId] : null;
 
@@ -119,7 +121,17 @@ const SolarSystem = () => {
                 {compareMode ? (
                   <h2 className="text-4xl font-bold tracking-tighter text-white">PLANET COMPARISON</h2>
                 ) : (
-                  <h2 className="text-6xl font-bold tracking-tighter text-white">{selectedPlanet?.name}</h2>
+                  <div className="flex items-center gap-4">
+                    <h2 className="text-6xl font-bold tracking-tighter text-white">{selectedPlanet?.name}</h2>
+                    {selectedPlanetId && (
+                      <button 
+                        onClick={() => toggleFavorite('planets', selectedPlanetId)}
+                        className={`p-2 rounded-full transition-colors ${isFavorite('planets', selectedPlanetId) ? 'bg-cosmos-accent text-cosmos-black' : 'bg-white/5 text-white/60 hover:bg-white/10'}`}
+                      >
+                        <Heart size={20} fill={isFavorite('planets', selectedPlanetId) ? "currentColor" : "none"} />
+                      </button>
+                    )}
+                  </div>
                 )}
                 <p className={compareMode ? "text-cosmos-accent" : "text-white/40"}>
                   {compareMode ? "Side-by-side analytical data" : "Planetary Profile"}

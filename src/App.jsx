@@ -7,6 +7,7 @@ import SatelliteTracker from './pages/SatelliteTracker';
 import SpaceWeatherCenter from './pages/SpaceWeatherCenter';
 import Sky from './pages/Sky';
 import MissionDetail from './pages/MissionDetail';
+import Missions from './pages/Missions';
 import AiObservatory from './pages/AiObservatory';
 import MyCosmos from './pages/MyCosmos';
 import { FavoritesProvider } from './context/FavoritesContext';
@@ -23,7 +24,7 @@ function App() {
           <Route path="space-weather" element={<SpaceWeatherCenter />} />
           <Route path="sky" element={<Sky />} />
           <Route path="my-cosmos" element={<MyCosmos />} />
-          <Route path="missions" element={<MissionDetail />} />
+          <Route path="missions" element={<Missions />} />
           <Route path="missions/:id" element={<MissionDetail />} />
           <Route path="ai-observatory" element={<AiObservatory />} />
         </Route>

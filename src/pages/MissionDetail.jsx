@@ -7,7 +7,7 @@ import { useFavorites } from '../context/FavoritesContext';
 
 const MissionDetail = () => {
   const { id } = useParams();
-  const mission = MISSION_DATA.find(m => m.id === id);
+  const mission = MISSION_DATA[id];
   const { isFavorite, toggleFavorite } = useFavorites();
 
   if (!mission) {
@@ -19,7 +19,7 @@ const MissionDetail = () => {
     );
   }
 
-  const isFav = isFavorite(mission.id);
+  const isFav = isFavorite('missions', mission.id);
 
   return (
     <div className="p-8 max-w-4xl mx-auto">
@@ -30,7 +30,7 @@ const MissionDetail = () => {
         <div className="flex items-center gap-4">
           <h1 className="text-5xl font-bold tracking-tighter">{mission.name}</h1>
           <button 
-            onClick={() => toggleFavorite(mission.id)}
+            onClick={() => toggleFavorite('missions', mission.id)}
             className={`p-2 rounded-full transition-colors ${isFav ? 'bg-cosmos-accent text-cosmos-black' : 'bg-white/5 text-white/60 hover:bg-white/10'}`}
           >
             <Heart size={24} fill={isFav ? "currentColor" : "none"} />
