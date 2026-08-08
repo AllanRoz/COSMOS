@@ -48,6 +48,7 @@ Unlike generic space websites, COSMOS focuses on an information-dense, polished 
 ### Built With
 
 - [![React][React.js]][React-url]
+- [![JavaScript][JavaScript.js]][JavaScript-url]
 - [![Vite][Vite.dev]][Vite-url]
 - [![TailwindCSS][Tailwind.css]][Tailwind-url]
 - [![Three.js][Three.js]][Three-url]
@@ -117,6 +118,8 @@ Project Link: [https://github.com/AllanRoz/COSMOS/](https://github.com/AllanRoz/
 [product-screenshot]: public/cosmos.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
+[JavaScript.js]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+[JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 [Vite.dev]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
 [Vite-url]: https://vite.dev/
 [Tailwind.css]: https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white
