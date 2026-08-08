@@ -54,7 +54,7 @@ export const PLANET_DATA = {
     description: "Venus is often called Earth's twin because of its similar size. However, it has a thick, toxic atmosphere that traps heat, making it the hottest planet.",
     stats: {
       diameter: "12,104 km",
-      mass: "4.87 ×労働 24 kg",
+      mass: "4.87 × 10^24 kg",
       gravity: "8.87 m/s²",
       temperature: "464°C",
       orbitalPeriod: "225 days",

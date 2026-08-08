@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import Scene from '../components/three/Scene';
 import { PLANET_DATA } from '../constants/planetData';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Heart, Info, Zap, Ruler } from 'lucide-react';
+import { ArrowLeft, Heart, Ruler, Play, Pause } from 'lucide-react';
 import { useFavorites } from '../context/FavoritesContext';
 
 const SolarSystem = () => {
   const [selectedPlanetId, setSelectedPlanetId] = useState(null);
   const [compareMode, setCompareMode] = useState(false);
   const [compareIds, setCompareIds] = useState([]);
+  const [simSpeed, setSimSpeed] = useState(1);
+  const [paused, setPaused] = useState(false);
   const { isFavorite, toggleFavorite } = useFavorites();
 
   const selectedPlanet = selectedPlanetId ? PLANET_DATA[selectedPlanetId] : null;
@@ -51,8 +53,8 @@ const SolarSystem = () => {
         </div>
       </div>
 
-      {/* Planet Selector - Floating Top Right */}
-      <div className="absolute top-8 right-8 z-10 flex flex-col gap-2">
+      {/* Planet Selector - Floating Middle Left */}
+      <div className="absolute left-8 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-2">
         {Object.keys(PLANET_DATA).map((id) => {
           const planet = PLANET_DATA[id];
           const isDwarf = id === 'pluto';
@@ -74,15 +76,16 @@ const SolarSystem = () => {
       </div>
 
       {/* Simulation Controls */}
-      <div className="absolute bottom-8 right-8 z-10">
+      <div className="absolute bottom-8 left-8 z-10">
         <div className="bg-cosmos-slate/80 p-5 rounded-2xl border border-white/10 backdrop-blur-xl">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest">Simulation</h3>
             <button 
-              onClick={() => window.dispatchEvent(new CustomEvent('toggleSim'))} 
+              onClick={() => setPaused(!paused)} 
               className="p-2 bg-cosmos-accent text-cosmos-black rounded-lg hover:bg-white transition-colors"
+              aria-label={paused ? 'Play simulation' : 'Pause simulation'}
             >
-              <Zap size={16} fill="currentColor" />
+              {paused ? <Play size={16} fill="currentColor" /> : <Pause size={16} fill="currentColor" />}
             </button>
           </div>
           <div className="flex items-center gap-4">
@@ -93,16 +96,20 @@ const SolarSystem = () => {
                 min="0" 
                 max="5" 
                 step="0.1" 
+                value={simSpeed}
+                onChange={(e) => setSimSpeed(parseFloat(e.target.value))}
                 className="w-24 accent-cosmos-accent"
+                aria-label="Simulation speed"
               />
             </div>
+            <span className="text-sm font-bold text-white/60">{simSpeed.toFixed(1)}x</span>
           </div>
         </div>
       </div>
 
       {/* Main Scene */}
       <div className="w-full h-full">
-        <Scene onPlanetSelect={handlePlanetSelect} />
+        <Scene onPlanetSelect={handlePlanetSelect} simSpeed={simSpeed} paused={paused} />
       </div>
 
       {/* Planet Info & Comparison Panel */}
@@ -127,6 +134,7 @@ const SolarSystem = () => {
                       <button 
                         onClick={() => toggleFavorite('planets', selectedPlanetId)}
                         className={`p-2 rounded-full transition-colors ${isFavorite('planets', selectedPlanetId) ? 'bg-cosmos-accent text-cosmos-black' : 'bg-white/5 text-white/60 hover:bg-white/10'}`}
+                        aria-label={isFavorite('planets', selectedPlanetId) ? `Remove ${selectedPlanet?.name} from favorites` : `Add ${selectedPlanet?.name} to favorites`}
                       >
                         <Heart size={20} fill={isFavorite('planets', selectedPlanetId) ? "currentColor" : "none"} />
                       </button>

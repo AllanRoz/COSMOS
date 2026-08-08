@@ -1,12 +1,12 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { MISSION_DATA } from '../mock/missionData';
-import { Rocket, MapPin, Info, Calendar, AlertTriangle, CheckCircle2, Clock, XCircle, Heart } from "lucide-react";
-import { motion } from "framer-motion";
+import { MapPin, Calendar, CheckCircle2, Clock, XCircle, Heart, ArrowLeft } from "lucide-react";
 import { useFavorites } from '../context/FavoritesContext';
 
 const MissionDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const mission = MISSION_DATA[id];
   const { isFavorite, toggleFavorite } = useFavorites();
 
@@ -15,17 +15,25 @@ const MissionDetail = () => {
       <div className="p-8 text-center">
         <h1 className="text-3xl font-bold">Mission Not Found</h1>
         <p className="text-white/40 mt-4">The requested mission identifier does not exist in our records.</p>
+        <Link to="/missions" className="inline-block mt-6 text-cosmos-accent font-bold hover:underline">
+          Back to Missions
+        </Link>
       </div>
     );
   }
 
   const isFav = isFavorite('missions', mission.id);
+  const lastUpdated = new Date().toISOString().slice(0, 16).replace('T', ' ').concat(' UTC');
 
   return (
     <div className="p-8 max-w-4xl mx-auto">
       <div className="flex items-center gap-4 mb-8">
-        <button className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/60">
-          <XCircle size={24} />
+        <button 
+          onClick={() => navigate('/missions')}
+          className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/60"
+          aria-label="Back to missions"
+        >
+          <ArrowLeft size={24} />
         </button>
         <div className="flex items-center gap-4">
           <h1 className="text-5xl font-bold tracking-tighter">{mission.name}</h1>
@@ -71,7 +79,7 @@ const MissionDetail = () => {
               </div>
               <div>
                 <p className="text-xl font-bold">{mission.status}</p>
-                <p className="text-white/40 text-sm">Last updated: 2026-08-07 14:30 UTC</p>
+                <p className="text-white/40 text-sm">Last updated: {lastUpdated}</p>
               </div>
             </div>
           </div>

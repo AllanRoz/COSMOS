@@ -9,6 +9,8 @@ const NASAExplorer = () => {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [images, setImages] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,15 +32,20 @@ const NASAExplorer = () => {
     e.preventDefault();
     if (!searchQuery) return;
     
-    setLoading(true);
+    setSearchLoading(true);
+    setSearchError(null);
     try {
       const results = await nasaService.searchImages(searchQuery);
       setImages(results);
+      if (results.length === 0) {
+        setSearchError('No images found for your search. Try a different term.');
+      }
     } catch (err) {
       console.error(err);
       setImages([]);
+      setSearchError('Image search failed. The NASA image library may be unavailable right now.');
     } finally {
-      setLoading(false);
+      setSearchLoading(false);
     }
   };
 
@@ -74,11 +81,24 @@ const NASAExplorer = () => {
           <div className="bg-cosmos-slate rounded-2xl overflow-hidden border border-white/5 shadow-2xl">
             {apod && (
               <>
-                <img 
-                  src={apod.url} 
-                  alt={apod.title} 
-                  className="w-full h-auto max-h-[600px] object-cover"
-                />
+                {apod.media_type === 'video' ? (
+                  <div className="aspect-video bg-cosmos-black flex items-center justify-center p-8">
+                    <a 
+                      href={apod.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-cosmos-accent font-bold hover:underline"
+                    >
+                      ▶ Watch today's APOD video (opens in new tab)
+                    </a>
+                  </div>
+                ) : (
+                  <img 
+                    src={apod.url} 
+                    alt={apod.title} 
+                    className="w-full h-auto max-h-[600px] object-cover"
+                  />
+                )}
                 <div className="p-8 bg-cosmos-slate">
                   <h3 className="text-2xl font-bold mb-4">{apod.title}</h3>
                   <p className="text-white/70 leading-relaxed">{apod.explanation}</p>
@@ -110,30 +130,43 @@ const NASAExplorer = () => {
           </button>
         </form>
 
-        {loading && <div className="flex justify-center py-20"><Loader2 className="animate-spin text-cosmos-accent" size={48} /></div>}
+        {searchLoading && <div className="flex justify-center py-20"><Loader2 className="animate-spin text-cosmos-accent" size={48} /></div>}
+        
+        {searchError && !searchLoading && (
+          <div className="bg-yellow-900/20 border border-yellow-500/30 p-4 rounded-xl mb-8 text-yellow-400 text-sm">
+            {searchError}
+          </div>
+        )}
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <AnimatePresence>
             {images.map((img, index) => (
               <motion.div
-                key={img.title || index}
+                key={img.nasaId || img.title || index}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 className="group relative bg-cosmos-slate rounded-xl overflow-hidden border border-white/5"
               >
-                <img 
-                  src={img.url} 
-                  alt={img.title} 
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+                <div className="w-full h-64 overflow-hidden bg-white/5">
+                  {img.url ? (
+                    <img 
+                      src={img.url} 
+                      alt={img.title} 
+                      loading="lazy"
+                      onError={(e) => { e.target.remove(); }}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : null}
+                </div>
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-cosmos-slate to-transparent">
                   <p className="text-sm font-bold line-clamp-2">{img.title}</p>
+                  {img.date && <p className="text-[10px] text-white/40">{img.date}</p>}
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
-          {!loading && images.length === 0 && searchQuery && (
+          {!searchLoading && !searchError && images.length === 0 && searchQuery && (
             <p className="col-span-full text-center text-white/40 py-10">No images found for your search.</p>
           )}
         </div>

@@ -7,16 +7,19 @@ const ActivityChart = ({ data, title }) => (
   <div className="bg-cosmos-slate p-6 rounded-xl border border-white/5">
     <h3 className="text-sm font-medium text-white/60 uppercase tracking-wider mb-6">{title}</h3>
     <div className="flex items-end justify-between h-32 gap-2">
-      {[40, 70, 50, 90, 60, 30, 80, 95, 40, 60, 80, 85].map((height, i) => (
+      {(data && data.length ? data : [0]).map((height, i) => (
         <motion.div
           key={i}
           initial={{ height: 0 }}
-          animate={{ height: `${height}%` }}
+          animate={{ height: `${Math.max(0, Math.min(100, height))}%` }}
           transition={{ delay: i * 0.05, duration: 0.5 }}
           className="bg-cosmos-accent w-full rounded-t-sm"
         />
       ))}
     </div>
+    <p className="text-[10px] text-white/40 mt-3">
+      K-index scale: 0 (quiet) to 9 (extreme geomagnetic storm)
+    </p>
   </div>
 );
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { missionsService } from '../services/missions';
 import { Rocket, MapPin, Info, Calendar, AlertTriangle, CheckCircle2, Clock, XCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const StatusBadge = ({ status }) => {
   const styles = {
@@ -32,11 +32,22 @@ const StatusBadge = ({ status }) => {
 
 const MissionCard = ({ mission }) => {
   const [timeLeft, setTimeLeft] = useState('');
+  const navigate = useNavigate();
+
+  const getLaunchDate = () => {
+    const date = new Date(mission.launchDate);
+    if (mission.launchTime) {
+      const [h, m] = mission.launchTime.split(':').map(Number);
+      date.setUTCHours(h, m, 0, 0);
+    }
+    return date;
+  };
 
   useEffect(() => {
-    if (new Date(mission.launchDate) > new Date() && mission.status === 'Scheduled') {
+    const launch = getLaunchDate();
+    if (mission.status === 'Scheduled' && launch > new Date()) {
       const timer = setInterval(() => {
-        const diff = new Date(mission.launchDate) - new Date();
+        const diff = launch - new Date();
         if (diff <= 0) {
           setTimeLeft('LAUNCHED');
           clearInterval(timer);
@@ -50,15 +61,16 @@ const MissionCard = ({ mission }) => {
       }, 1000);
       return () => clearInterval(timer);
     } else {
-      setTimeLeft(mission.status === 'Completed' ? 'COMPLETED' : mission.status);
+      setTimeLeft(mission.status === 'Completed' ? 'COMPLETED' : mission.status.toUpperCase());
     }
-  }, [mission.launchDate, mission.status]);
+  }, [mission.launchDate, mission.launchTime, mission.status]);
 
   return (
     <motion.div 
       layout
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
+      onClick={() => navigate(`/missions/${mission.id}`)}
       className="bg-cosmos-slate p-6 rounded-xl border border-white/5 hover:border-cosmos-accent/50 transition-all group cursor-pointer"
     >
       <div className="flex justify-between items-start mb-4">
@@ -89,7 +101,7 @@ const MissionCard = ({ mission }) => {
             {timeLeft}
           </span>
         </div>
-        <Link to={`/missions/${mission.id}`} className="text-cosmos-accent text-sm font-bold hover:underline">
+        <Link to={`/missions/${mission.id}`} onClick={(e) => e.stopPropagation()} className="text-cosmos-accent text-sm font-bold hover:underline">
           DETAILS
         </Link>
       </div>
@@ -106,7 +118,6 @@ const Missions = () => {
   useEffect(() => {
     missionsService.getAllMissions()
       .then(data => {
-        console.log('Missions data:', data);
         setMissions(data);
         setLoading(false);
       })

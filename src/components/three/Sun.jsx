@@ -9,11 +9,6 @@ const sunMaterial = new THREE.MeshStandardMaterial(
     color: "#ffcc00",
   }
 );
-const sunLight = new THREE.PointLight(
-  "#ffcc00",
-  2,
-  100
-);
 
 const Sun = () => {
   return (

@@ -60,10 +60,10 @@ const Sky = () => {
             <div className="bg-cosmos-slate/80 p-8 rounded-3xl border border-white/10 backdrop-blur-md flex flex-col justify-center items-center text-center">
               <Star className="text-cosmos-accent mb-6" size={48} />
               <h3 className="text-2xl font-bold mb-4">Explore the Stars</h3>
-              <p className="text-white/40 mb-8">Our full celestial mapping is coming soon. Connect your telescope to see real-time coordinates of every known celestial body.</p>
-              <button className="px-8 py-3 bg-cosmos-accent text-cosmos-black font-bold rounded-full hover:scale-105 transition-transform">
-                Join Waitlist
-              </button>
+              <p className="text-white/40 mb-8 max-w-md">Real-time star charts and telescope integration are planned for a future release. For now, explore the 3D solar system and tonight's sky above.</p>
+              <a href="/solar-system" className="px-8 py-3 bg-cosmos-accent text-cosmos-black font-bold rounded-full hover:bg-white transition-colors">
+                Explore the Solar System
+              </a>
             </div>
           </div>
         </main>

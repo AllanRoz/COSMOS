@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Zap, 
   Moon, 
-  Sun, 
   Navigation, 
   Activity, 
   Rocket, 
   AlertTriangle,
-  Image as ImageIcon
+  Image as ImageIcon,
+  FlaskConical
 } from 'lucide-react';
 import { dashboardData } from '../mock/dashboardData';
 import NEOFeed from '../components/dashboard/NEOFeed';
@@ -28,29 +28,43 @@ const Card = ({ title, children, icon: Icon, className = "" }) => (
 );
 
 const MissionControl = () => {
+  const [now, setNow] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
-      <header className="mb-6 md:mb-10">
-        <motion.h1 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="text-4xl font-bold tracking-tighter"
-        >
-          MISSION CONTROL
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-white/40"
-        >
-          Explore the universe.
-        </motion.p>
+      <header className="mb-6 md:mb-10 flex justify-between items-start">
+        <div>
+          <motion.h1 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-4xl font-bold tracking-tighter"
+          >
+            MISSION CONTROL
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-white/40"
+          >
+            Explore the universe.
+          </motion.p>
+        </div>
+        <div className="flex items-center gap-2 bg-white/5 px-3 py-1 rounded-full border border-white/10">
+          <FlaskConical size={14} className="text-cosmos-accent" />
+          <span className="text-xs text-white/40">Telemetry cards below are demo data — live API feeds marked separately</span>
+        </div>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         <Card title="Current Time (UTC)" icon={Zap}>
-          <p className="text-3xl font-bold">{new Date(dashboardData.currentTime).toLocaleTimeString()}</p>
+          <p className="text-3xl font-bold">{now.toLocaleTimeString('en-GB', { timeZone: 'UTC' })}</p>
+          <p className="text-xs text-white/40 mt-1">{now.toLocaleDateString('en-GB', { timeZone: 'UTC' })}</p>
         </Card>
 
         <Card title="Moon Phase" icon={Moon}>
@@ -72,6 +86,9 @@ const MissionControl = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <Card title="ISS Status" icon={Navigation} className="mb-6">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-[10px] uppercase tracking-wider bg-white/5 border border-white/10 px-2 py-0.5 rounded-full text-white/40">Demo telemetry</span>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-white/40 mb-1">Location</p>
@@ -93,6 +110,9 @@ const MissionControl = () => {
           </Card>
 
           <Card title="Near Earth Objects" icon={AlertTriangle}>
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-[10px] uppercase tracking-wider bg-green-500/10 border border-green-500/30 px-2 py-0.5 rounded-full text-green-400">Live NASA API</span>
+            </div>
             <NEOFeed />
           </Card>
         </div>

@@ -11,7 +11,7 @@ export const searchData = (query) => {
     p.description.toLowerCase().includes(lowerQuery)
   );
 
-  const missions = MISSION_DATA.filter(m => 
+  const missions = Object.values(MISSION_DATA).filter(m => 
     m.name.toLowerCase().includes(lowerQuery) || 
     m.description.toLowerCase().includes(lowerQuery)
   );
@@ -20,6 +20,12 @@ export const searchData = (query) => {
   const imagery = [];
   if (lowerQuery.includes('mars')) {
     imagery.push({ id: 'mars-1', title: 'Mars Rover High Res', type: 'NASA Image' });
+  }
+  if (lowerQuery.includes('earth')) {
+    imagery.push({ id: 'earth-1', title: 'Earth from Space', type: 'NASA Image' });
+  }
+  if (lowerQuery.includes('nebula')) {
+    imagery.push({ id: 'nebula-1', title: 'Carina Nebula', type: 'NASA Image' });
   }
 
   return { planets, missions, imagery };

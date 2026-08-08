@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ASTRONOMY_DATA } from '../../mock/astronomyData';
-import { Moon, Sun, Sunrise, Sunset, MapPin, Telescope, Star } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Moon, Sun, Sunrise, Sunset, MapPin, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const TonightSummary = () => {
-  const [location, setLocation] = useState('');
+  const { moon, sunrise, sunset, moonRise, moonSet } = ASTRONOMY_DATA;
 
   return (
     <div className="bg-cosmos-slate/50 p-8 rounded-3xl border border-white/10 backdrop-blur-md">
@@ -21,34 +21,33 @@ const TonightSummary = () => {
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <Sunrise size={18} className="text-cosmos-accent" />
-            <span className="text-white/60">Sunrise: 06:15 AM</span>
+            <span className="text-white/60">Sunrise: {sunrise}</span>
           </div>
           <div className="flex items-center gap-3">
             <Sunset size={18} className="text-cosmos-accent" />
-            <span className="text-white/60">Sunset: 08:45 PM</span>
+            <span className="text-white/60">Sunset: {sunset}</span>
           </div>
         </div>
 
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <Moon size={18} className="text-cosmos-accent" />
-            <span className="text-white/60">Moon Phase: {ASTRONOMY_DATA.moon.phase}</span>
+            <span className="text-white/60">Moon Phase: {moon.phase}</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-white/60">Moonrise: {ASTRONOMY_DATA.moon.rise}</span>
+            <Star size={18} className="text-cosmos-accent" />
+            <span className="text-white/60">Moonrise: {moonRise} · Moonset: {moonSet}</span>
           </div>
         </div>
 
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <MapPin size={18} className="text-cosmos-accent" />
-            <input 
-              type="text" 
-              placeholder="Enter location..." 
-              className="bg-transparent border-b border-white/20 focus:border-cosmos-accent outline-none text-sm w-full"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
+            <span className="text-white/60">{ASTRONOMY_DATA.location || 'Current Location'}</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Sun size={18} className="text-cosmos-accent" />
+            <span className="text-white/60">Meteor Showers: {ASTRONOMY_DATA.meteorShowers}</span>
           </div>
         </div>
       </div>
@@ -58,10 +57,16 @@ const TonightSummary = () => {
           <h4 className="text-sm font-bold text-white/60 uppercase tracking-wider mb-4">Visible Planets</h4>
           <div className="space-y-3">
             {ASTRONOMY_DATA.planets.map((planet, i) => (
-              <div key={i} className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
+                className="flex justify-between items-center p-3 bg-white/5 rounded-lg"
+              >
                 <span className="font-bold">{planet.name}</span>
                 <span className="text-xs text-white/40">{planet.visibility}</span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -70,13 +75,19 @@ const TonightSummary = () => {
           <h4 className="text-sm font-bold text-white/60 uppercase tracking-wider mb-4">Upcoming Events</h4>
           <div className="space-y-3">
             {ASTRONOMY_DATA.events.map((event, i) => (
-              <div key={i} className="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
+                className="flex justify-between items-center p-3 bg-white/5 rounded-lg"
+              >
                 <div>
                   <p className="font-bold">{event.name}</p>
                   <p className="text-[10px] text-white/40">{event.type}</p>
                 </div>
                 <span className="text-xs text-white/60">{event.date}</span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

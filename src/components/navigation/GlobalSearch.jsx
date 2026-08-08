@@ -32,8 +32,9 @@ const GlobalSearch = ({ isOpen, onClose }) => {
     } else if (type === 'mission') {
       navigate(`/missions/${item.id}`);
     } else {
-      console.log('Navigation to image:', item);
+      navigate(`/nasa-explorer`);
     }
+    onClose();
     setQuery('');
     setResults({ planets: [], missions: [], imagery: [] });
   };
@@ -69,7 +70,6 @@ const GlobalSearch = ({ isOpen, onClose }) => {
               className="w-full bg-cosmos-black border border-white/10 p-4 rounded-xl text-lg mb-8 focus:border-cosmos-accent outline-none"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch(null, 'search')}
             />
 
             <div className="space-y-8 max-h-[60vh] overflow-y-auto pr-2">

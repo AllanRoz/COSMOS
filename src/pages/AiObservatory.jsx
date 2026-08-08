@@ -38,10 +38,18 @@ const AiObservatory = () => {
   const mockAiResponse = async (query) => {
     await new Promise(resolve => setTimeout(resolve, 1200));
     const q = query.toLowerCase();
-    if (q.includes('jupiter')) return "Jupiter is the largest planet in our solar system. It's a gas giant with a massive storm known as the Great Red Spot.";
-    if (q.includes('mars')) return "Mars is the 'Red Planet'. It has the tallest volcano in the solar system, Olympus Mons, and is currently being explored by multiple rovers.";
-    if (q.includes('venus')) return "Venus is the hottest planet due to a runaway greenhouse effect, with surface temperatures hot enough to melt lead.";
-    if (q.includes('take me to')) return "I've adjusted our local coordinates to your requested destination. Visualizing data now.";
+    if (q.includes('black hole')) return "A black hole is a region of spacetime where gravity is so strong that nothing — not even light — can escape. They form when massive stars collapse at the end of their lives. The nearest known black hole, Gaia BH1, is about 1,560 light-years away.";
+    if (q.includes('compare earth and mars') || q.includes('earth and mars')) return "Earth and Mars are both rocky planets, but very different: Earth has a thick nitrogen/oxygen atmosphere and liquid water oceans; Mars has a thin carbon-dioxide atmosphere and no surface liquid water. Mars is about half Earth's diameter, has ~38% of its gravity, and its average temperature is about -65°C compared to Earth's 15°C.";
+    if (q.includes('jupiter')) return "Jupiter is the largest planet in our solar system — more than twice as massive as all other planets combined. It's a gas giant with a massive storm known as the Great Red Spot, and it currently has 95 confirmed moons. It's about 5.2 astronomical units (778 million km) from the Sun.";
+    if (q.includes('james webb')) return "The James Webb Space Telescope (JWST) is the world's premier infrared space observatory. Launched on December 25, 2021, it orbits the Sun at the L2 Lagrange point, 1.5 million km from Earth. Its 6.5-meter gold-coated mirror lets it see the earliest galaxies and study exoplanet atmospheres.";
+    if (q.includes('how far away is jupiter')) return "Jupiter's distance from Earth varies from about 588 million km at closest approach to roughly 968 million km at its farthest. On average, it is about 778 million km (5.2 AU) from the Sun.";
+    if (q.includes('mars')) return "Mars is the 'Red Planet'. It has the tallest volcano in the solar system, Olympus Mons, and the deepest canyon, Valles Marineris. It is currently being explored by NASA's Perseverance rover and China's Zhurong rover.";
+    if (q.includes('venus')) return "Venus is the hottest planet due to a runaway greenhouse effect, with surface temperatures hot enough to melt lead (about 464°C). It rotates backwards compared to most planets, and a day on Venus is longer than its year.";
+    if (q.includes('saturn')) return "Saturn is best known for its spectacular ring system, made of billions of ice particles, rocks, and dust. It's the least dense planet — it could float in water. It has 146 confirmed moons, including Titan, which has a thick atmosphere and lakes of liquid methane.";
+    if (q.includes('moon')) return "The Moon is Earth's only natural satellite, about 384,400 km away on average. It formed roughly 4.5 billion years ago, likely from debris after a Mars-sized body collided with early Earth. It drives our ocean tides and stabilizes Earth's axial tilt.";
+    if (q.includes('apollo')) return "The Apollo program was NASA's effort to land humans on the Moon. Between 1969 and 1972, six Apollo missions landed 12 astronauts on the lunar surface. Apollo 11 made history on July 20, 1969, when Neil Armstrong and Buzz Aldrin became the first humans to walk on the Moon.";
+    if (q.includes('asteroid')) return "Asteroids are rocky remnants from the formation of the solar system, mostly orbiting the Sun in the main belt between Mars and Jupiter. Near-Earth Objects (NEOs) are asteroids and comets whose orbits bring them close to Earth; NASA tracks these through its Planetary Defense program.";
+    if (q.includes('take me to')) return "I've adjusted our local coordinates to your requested destination. Head to the Solar System section to explore it visually.";
     return "That's a fascinating question. My data suggests that space exploration continues to reveal secrets about our universe's origins. Would you like to know more about a specific planet or mission?";
   };
 
@@ -54,11 +62,11 @@ const AiObservatory = () => {
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tighter">ORBIT</h1>
-            <p className="text-white/40 text-xs">AI ASTROLOGY ASSISTANT</p>
+            <p className="text-white/40 text-xs">AI ASTRONOMY ASSISTANT</p>
           </div>
         </div>
         <div className="text-white/40 text-sm bg-white/5 px-4 py-2 rounded-full border border-white/10">
-          Online Status: <span className="text-green-400">Connected</span>
+          Mode: <span className="text-yellow-400">Demo (offline knowledge base)</span>
         </div>
       </header>
 

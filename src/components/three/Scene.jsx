@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Sun from './Sun';
@@ -6,10 +6,7 @@ import Planet from './Planet';
 import Stars from './Stars';
 import { PLANET_DATA } from '../../constants/planetData';
 
-const Scene = ({ onPlanetSelect }) => {
-  const [simSpeed, setSimSpeed] = useState(1);
-  const [paused, setPaused] = useState(false);
-
+const Scene = ({ onPlanetSelect, simSpeed = 1, paused = false }) => {
   return (
     <div className="relative w-full h-full">
       <Canvas>
@@ -39,9 +36,6 @@ const Scene = ({ onPlanetSelect }) => {
               paused={paused}
             />
           ))}
-
-        <Suspense fallback={null}>
-        </Suspense>
       </Canvas>
     </div>
   );

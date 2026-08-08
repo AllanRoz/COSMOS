@@ -1,12 +1,10 @@
 import React from 'react';
 import { Heart, Rocket, Image, Satellite, Star, Trash2, Globe } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { PLANET_DATA } from '../constants/planetData';
 import { MISSION_DATA } from '../mock/missionData';
 import { SATELLITE_DATA } from '../mock/satelliteData';
-import { ASTRONOMY_DATA } from '../mock/astronomyData';
 import { useFavorites } from '../context/FavoritesContext';
-import { Link } from 'react-router-dom';
 
 const MyCosmos = () => {
   const { getFavoritesByType, toggleFavorite, clearAllFavorites } = useFavorites();

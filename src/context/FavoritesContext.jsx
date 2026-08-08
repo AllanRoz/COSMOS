@@ -2,16 +2,37 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const FavoritesContext = createContext();
 
+const DEFAULT_FAVORITES = {
+  planets: [],
+  missions: [],
+  images: [],
+  satellites: [],
+  astronomy: []
+};
+
+const parseFavorites = (raw) => {
+  try {
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return DEFAULT_FAVORITES;
+    if (Array.isArray(parsed)) {
+      return { ...DEFAULT_FAVORITES, planets: parsed };
+    }
+    return {
+      planets: Array.isArray(parsed.planets) ? parsed.planets : [],
+      missions: Array.isArray(parsed.missions) ? parsed.missions : [],
+      images: Array.isArray(parsed.images) ? parsed.images : [],
+      satellites: Array.isArray(parsed.satellites) ? parsed.satellites : [],
+      astronomy: Array.isArray(parsed.astronomy) ? parsed.astronomy : []
+    };
+  } catch (err) {
+    return DEFAULT_FAVORITES;
+  }
+};
+
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState(() => {
     const saved = localStorage.getItem('cosmos_favorites');
-    return saved ? JSON.parse(saved) : {
-      planets: [],
-      missions: [],
-      images: [],
-      satellites: [],
-      astronomy: []
-    };
+    return saved ? parseFavorites(saved) : DEFAULT_FAVORITES;
   });
 
   useEffect(() => {
@@ -47,13 +68,7 @@ export const FavoritesProvider = ({ children }) => {
   const getAllFavorites = () => favorites;
 
   const clearAllFavorites = () => {
-    setFavorites({
-      planets: [],
-      missions: [],
-      images: [],
-      satellites: [],
-      astronomy: []
-    });
+    setFavorites({ ...DEFAULT_FAVORITES });
   };
 
   return (

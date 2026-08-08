@@ -14,9 +14,9 @@ export const dashboardData = {
   },
   nextIssPass: "Tonight at 11:45 PM",
   upcomingLaunch: {
-    name: "Starship Flight 6",
-    provider: "SpaceX",
-    date: "2024-12-05",
+    name: "SpaceX Crew-9",
+    provider: "NASA / SpaceX",
+    date: "2026-08-15",
     status: "Scheduled"
   },
   apod: {
