@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Stars } from '@react-three/drei';
 import Globe from '../components/three/Globe';
@@ -91,10 +91,12 @@ const SatelliteTracker = () => {
       <Canvas>
         <PerspectiveCamera makeDefault position={[0, 20, 40]} />
         <OrbitControls makeDefault />
-        <ambientLight intensity={0.4} />
-        <pointLight position={[10, 10, 10]} intensity={1.5} />
+        <ambientLight intensity={0.6} />
+        <directionalLight position={[15, 10, 5]} intensity={1.2} />
         <Stars />
-        <Globe />
+        <Suspense fallback={null}>
+          <Globe />
+        </Suspense>
         
         {/* ISS Marker */}
         {telemetry && (
