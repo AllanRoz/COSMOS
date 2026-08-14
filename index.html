@@ -2,14 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- viewport: user-scalable=no prevents double-tap zoom issues while still respecting pinch zoom in Three.js -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>COSMOS | Explore the Universe</title>
-    <link rel="icon" type="image/x-icon" href="/COSMOS/cosmos.svg" />
-    <script type="module" crossorigin src="/COSMOS/assets/index-DRq3GIC9.js"></script>
-    <link rel="modulepreload" crossorigin href="/COSMOS/assets/router-DORZp02K.js">
-    <link rel="modulepreload" crossorigin href="/COSMOS/assets/framer-Dzoxe-SR.js">
-    <link rel="modulepreload" crossorigin href="/COSMOS/assets/three-DHEgfkK7.js">
-    <link rel="stylesheet" crossorigin href="/COSMOS/assets/index-gjkYuN4y.css">
+    <link rel="icon" type="image/x-icon" href="/cosmos.svg" />
+
+    <!-- iOS web-app hints -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#020617" />
+
+    <!-- Prevent flash of unstyled content -->
+    <style>
+      html, body { background: #020617; }
+    </style>
+    <script type="module" crossorigin src="/assets/index-DGdDq5ys.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/router-DORZp02K.js">
+    <link rel="modulepreload" crossorigin href="/assets/framer-Dzoxe-SR.js">
+    <link rel="modulepreload" crossorigin href="/assets/three-vendor-DWSahAle.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-DSUUVOgJ.css">
   </head>
   <body class="bg-cosmos-black text-cosmos-white">
     <div id="root"></div>
