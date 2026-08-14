@@ -7,29 +7,127 @@
   --foreground: #f8fafc;
 }
 
+/* -----------------------------------------
+   Base resets
+----------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Ensures percentage-based heights work */
+  height: 100%;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  /* Prevent font size inflation on mobile */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   background-color: var(--background);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal overflow at the root level */
+  overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
+/* Prevent content from extending into notch / home-bar areas */
+#root {
+  min-height: 100%;
+  min-height: 100dvh;
+}
+
+/* -----------------------------------------
+   Custom scrollbar (desktop only)
+----------------------------------------- */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
+  height: 5px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* -----------------------------------------
+   Touch / mobile helpers
+----------------------------------------- */
+
+/* Remove default tap highlight on mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hide scrollbar but keep scroll functional — utility class */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure images never blow out of their containers */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* -----------------------------------------
+   Three.js canvas full-size fix
+----------------------------------------- */
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* -----------------------------------------
+   Horizontal-scroll chip rows (e.g. Mission filters)
+----------------------------------------- */
+.chips-row {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.chips-row > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* -----------------------------------------
+   Accessible focus ring
+----------------------------------------- */
+:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+/* -----------------------------------------
+   Reduced-motion support
+----------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

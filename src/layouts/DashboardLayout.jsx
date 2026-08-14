@@ -1,43 +1,71 @@
 import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '../components/navigation/Sidebar';
-import { Menu, X } from 'lucide-react';
+import BottomNav from '../components/navigation/BottomNav';
+import { Menu } from 'lucide-react';
+import { NAV_ITEMS } from '../constants/navItems';
+
+// Map path to page name for the mobile header
+const getPageName = (pathname) => {
+  // Handle dynamic routes like /missions/:id
+  if (pathname.startsWith('/missions/')) return 'Mission Detail';
+  const match = NAV_ITEMS.find(i => i.path === pathname);
+  return match ? match.name : 'COSMOS';
+};
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+  const pageName = getPageName(location.pathname);
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
+  const openSidebar = () => setSidebarOpen(true);
+  const closeSidebar = () => setSidebarOpen(false);
 
   return (
     <div className="flex h-screen bg-cosmos-black text-cosmos-white overflow-hidden">
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-      
-      {/* Mobile Backdrop */}
+      {/* Sidebar */}
+      <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
+
+      {/* Mobile backdrop */}
       {isSidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black/60 z-40 md:hidden" 
-          onClick={toggleSidebar}
+        <div
+          className="fixed inset-0 bg-black/60 z-40 md:hidden"
+          onClick={closeSidebar}
+          aria-hidden="true"
         />
       )}
-      
-      <main className="flex-1 relative flex flex-col overflow-hidden">
-        {/* Mobile Header */}
-        <header className="md:hidden flex items-center justify-between p-4 bg-cosmos-slate border-b border-white/10">
-          <h1 className="text-xl font-bold tracking-tighter text-cosmos-accent">COSMOS</h1>
-          <button 
-            onClick={toggleSidebar}
-            className="p-2 rounded-md bg-white/5 hover:bg-white/10 transition-colors"
+
+      {/* Main content */}
+      <main className="flex-1 relative flex flex-col overflow-hidden min-w-0">
+        {/* Mobile header */}
+        <header className="md:hidden flex items-center justify-between px-4 h-14 shrink-0
+                           bg-cosmos-slate border-b border-white/10">
+          <button
+            onClick={openSidebar}
+            className="p-2 -ml-2 rounded-md bg-white/5 hover:bg-white/10 transition-colors
+                       min-w-[44px] min-h-[44px] flex items-center justify-center"
+            aria-label="Open navigation menu"
+            aria-expanded={isSidebarOpen}
           >
-            {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+            <Menu size={22} />
           </button>
+          <h1 className="text-base font-bold tracking-tight text-cosmos-accent absolute left-1/2 -translate-x-1/2">
+            {pageName}
+          </h1>
+          {/* Right slot kept for future icons */}
+          <div className="w-10" />
         </header>
 
-        <div className="flex-1 overflow-y-auto relative">
-          <Outlet />
+        {/* Page content — add bottom padding on mobile to clear the bottom nav */}
+        <div className="flex-1 overflow-y-auto relative pb-0 md:pb-0">
+          <div className="md:pb-0 pb-16">
+            <Outlet />
+          </div>
         </div>
       </main>
+
+      {/* Bottom navigation — mobile only */}
+      <BottomNav />
     </div>
   );
 };

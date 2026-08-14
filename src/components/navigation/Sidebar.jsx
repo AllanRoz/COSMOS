@@ -1,84 +1,84 @@
-import { 
-  Rocket, 
-  Orbit, 
-  Waves, 
-  Telescope, 
-  Image as ImageIcon, 
-  Navigation, 
-  Zap,
-  Search,
-  Sparkles,
-  Heart
-} from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import GlobalSearch from './GlobalSearch';
 import { useState } from 'react';
-
-const navigation = [
-  { name: 'Mission Control', path: '/', icon: <Zap size={20} /> },
-  { name: 'Solar System', path: '/solar-system', icon: <Orbit size={20} /> },
-  { name: 'Satellites', path: '/satellites', icon: <Navigation size={20} /> },
-  { name: 'Space Weather', path: '/space-weather', icon: <Waves size={20} /> },
-  { name: 'Astronomy', path: '/sky', icon: <Telescope size={20} /> },
-  { name: 'NASA Explorer', path: '/nasa-explorer', icon: <ImageIcon size={20} /> },
-  { name: 'Missions', path: '/missions', icon: <Rocket size={20} /> },
-  { name: 'My Cosmos', path: '/my-cosmos', icon: <Heart size={20} /> },
-  { name: 'AI Observatory', path: '/ai-observatory', icon: <Sparkles size={20} /> },
-];
+import { NAV_ITEMS } from '../../constants/navItems';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
-    <aside 
+    <aside
       className={`
-        fixed inset-0 z-50 bg-cosmos-slate flex flex-col transition-transform duration-300 ease-in-out
-        md:relative md:translate-x-0 md:inset-auto
+        fixed top-0 left-0 bottom-0 z-50 bg-cosmos-slate flex flex-col
+        transition-transform duration-300 ease-in-out
+        md:relative md:translate-x-0 md:flex
         ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-        w-full md:w-64 border-r border-white/10
+        w-72 md:w-64 shrink-0 border-r border-white/10
       `}
     >
-      <div className="p-6">
-        <h1 className="text-2xl font-bold tracking-tighter text-cosmos-accent">COSMOS</h1>
-        <p className="text-xs text-white/40">Explore the universe</p>
+      {/* Logo row */}
+      <div className="flex items-center justify-between p-5 md:p-6">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tighter text-cosmos-accent">COSMOS</h1>
+          <p className="text-xs text-white/40">Explore the universe</p>
+        </div>
+        {/* Close button – mobile only */}
+        <button
+          onClick={onClose}
+          className="md:hidden p-2 rounded-md bg-white/5 hover:bg-white/10 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+          aria-label="Close navigation"
+        >
+          <X size={20} />
+        </button>
       </div>
-      
-      <nav className="flex-1 px-4 space-y-2">
-        {navigation.map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            onClick={() => onClose()}
-            className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${
-              location.pathname === item.path 
-              ? 'bg-cosmos-accent text-cosmos-black' 
-              : 'text-white/60 hover:bg-white/5 hover:text-white'
-            }`}
-            aria-current={location.pathname === item.path ? 'page' : undefined}
-          >
-            {item.icon}
-            <span className="font-medium">{item.name}</span>
-          </Link>
-        ))}
+
+      {/* Nav links */}
+      <nav className="flex-1 px-3 space-y-1 overflow-y-auto">
+        {NAV_ITEMS.map((item) => {
+          const Icon = item.icon;
+          const active = location.pathname === item.path;
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              onClick={onClose}
+              className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors min-h-[44px] ${
+                active
+                  ? 'bg-cosmos-accent text-cosmos-black font-semibold'
+                  : 'text-white/60 hover:bg-white/5 hover:text-white'
+              }`}
+              aria-current={active ? 'page' : undefined}
+            >
+              <Icon size={20} className="shrink-0" />
+              <span className="font-medium">{item.name}</span>
+            </Link>
+          );
+        })}
       </nav>
 
+      {/* Search */}
       <div className="p-4 border-t border-white/10">
-        <button 
+        <button
           onClick={() => setIsSearchOpen(true)}
-          className="flex items-center gap-2 w-full text-white/40 hover:text-white transition-colors"
+          className="flex items-center gap-3 w-full text-white/40 hover:text-white transition-colors
+                     py-3 px-3 rounded-lg hover:bg-white/5 min-h-[44px]"
           aria-label="Open global search"
           aria-expanded={isSearchOpen}
         >
-          <Search size={14} />
-          <span className="text-xs">Global Search</span>
+          <Search size={16} className="shrink-0" />
+          <span className="text-sm">Global Search</span>
         </button>
       </div>
-      
-      <GlobalSearch isOpen={isSearchOpen} onClose={() => {
-        setIsSearchOpen(false);
-        onClose();
-      }} />
+
+      <GlobalSearch
+        isOpen={isSearchOpen}
+        onClose={() => {
+          setIsSearchOpen(false);
+          onClose();
+        }}
+      />
     </aside>
   );
 };

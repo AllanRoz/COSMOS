@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { searchData } from '../../services/search';
-import { X, ChevronRight } from 'lucide-react';
+import { X, ChevronRight, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const GlobalSearch = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState({ planets: [], missions: [], imagery: [] });
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (query.length > 2) {
@@ -26,109 +27,106 @@ const GlobalSearch = ({ isOpen, onClose }) => {
     return () => window.removeEventListener('keydown', handleEscape);
   }, [onClose]);
 
+  // Focus input when modal opens
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
+  }, [isOpen]);
+
   const handleSearch = (item, type) => {
     if (type === 'planet') {
-      navigate(`/solar-system`);
+      navigate('/solar-system');
     } else if (type === 'mission') {
       navigate(`/missions/${item.id}`);
     } else {
-      navigate(`/nasa-explorer`);
+      navigate('/nasa-explorer');
     }
     onClose();
     setQuery('');
     setResults({ planets: [], missions: [], imagery: [] });
   };
 
+  const hasResults =
+    results.planets.length > 0 ||
+    results.missions.length > 0 ||
+    results.imagery.length > 0;
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-cosmos-black z-50 flex items-center justify-center p-4"
-          onClick={(e) => e.stopPropagation()}
+          className="fixed inset-0 bg-cosmos-black/95 z-[60] flex items-start sm:items-center justify-center p-4 pt-16 sm:pt-4"
+          onClick={onClose}
         >
-          <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className="w-full max-w-3xl bg-cosmos-slate border border-white/10 rounded-3xl p-8 shadow-2xl"
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0, y: -10 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: -10 }}
+            transition={{ duration: 0.15 }}
+            className="w-full max-w-2xl bg-cosmos-slate border border-white/10 rounded-2xl
+                       shadow-2xl flex flex-col max-h-[80vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-2xl font-bold tracking-tighter text-cosmos-accent">GLOBAL SEARCH</h2>
-              <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full">
-                <X size={24} />
+            {/* Header row */}
+            <div className="flex items-center gap-3 p-4 border-b border-white/10">
+              <Search size={18} className="text-cosmos-accent shrink-0" />
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="Search planets, missions, imagery..."
+                className="flex-1 bg-transparent text-base focus:outline-none placeholder:text-white/30"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                autoComplete="off"
+              />
+              <button
+                onClick={onClose}
+                className="p-2 hover:bg-white/5 rounded-full min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="Close search"
+              >
+                <X size={20} />
               </button>
             </div>
 
-            <input 
-              autoFocus
-              type="text" 
-              placeholder="Search planets, missions, imagery..." 
-              className="w-full bg-cosmos-black border border-white/10 p-4 rounded-xl text-lg mb-8 focus:border-cosmos-accent outline-none"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-
-            <div className="space-y-8 max-h-[60vh] overflow-y-auto pr-2">
+            {/* Results */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-6">
               {results.planets.length > 0 && (
-                <div>
-                  <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Planets</h3>
-                  <div className="grid grid-cols-1 gap-3">
-                    {results.planets.map(p => (
-                      <button
-                        key={p.name}
-                        className="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 cursor-pointer transition-colors text-left"
-                        onClick={() => handleSearch(p, 'planet')}
-                      >
-                        <span className="font-bold">{p.name}</span>
-                        <ChevronRight size={16} />
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                <ResultSection
+                  title="Planets"
+                  items={results.planets}
+                  labelKey="name"
+                  onSelect={(item) => handleSearch(item, 'planet')}
+                />
               )}
-
               {results.missions.length > 0 && (
-                <div>
-                  <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Missions</h3>
-                  <div className="grid grid-cols-1 gap-3">
-                    {results.missions.map(m => (
-                      <button
-                        key={m.id}
-                        className="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 cursor-pointer transition-colors text-left"
-                        onClick={() => handleSearch(m, 'mission')}
-                      >
-                        <span className="font-bold">{m.name}</span>
-                        <ChevronRight size={16} />
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                <ResultSection
+                  title="Missions"
+                  items={results.missions}
+                  labelKey="name"
+                  onSelect={(item) => handleSearch(item, 'mission')}
+                />
               )}
-
               {results.imagery.length > 0 && (
-                <div>
-                  <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-4">Imagery</h3>
-                  <div className="grid grid-cols-1 gap-3">
-                    {results.imagery.map((img, i) => (
-                      <button
-                        key={i}
-                        className="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 cursor-pointer transition-colors text-left"
-                        onClick={() => handleSearch(img, 'image')}
-                      >
-                        <span className="font-bold">{img.title}</span>
-                        <ChevronRight size={16} />
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                <ResultSection
+                  title="Imagery"
+                  items={results.imagery}
+                  labelKey="title"
+                  onSelect={(item) => handleSearch(item, 'image')}
+                />
               )}
-
-              {query.length > 2 && results.planets.length === 0 && results.missions.length === 0 && results.imagery.length === 0 && (
-                <p className="text-white/40 text-center py-10">No results found for "{query}"</p>
+              {query.length > 2 && !hasResults && (
+                <p className="text-white/40 text-center py-10">
+                  No results found for &ldquo;{query}&rdquo;
+                </p>
+              )}
+              {query.length === 0 && (
+                <p className="text-white/30 text-sm text-center py-6">
+                  Start typing to search across the cosmos…
+                </p>
               )}
             </div>
           </motion.div>
@@ -137,5 +135,26 @@ const GlobalSearch = ({ isOpen, onClose }) => {
     </AnimatePresence>
   );
 };
+
+const ResultSection = ({ title, items, labelKey, onSelect }) => (
+  <div>
+    <h3 className="text-[11px] font-bold text-white/40 uppercase tracking-widest mb-3">
+      {title}
+    </h3>
+    <div className="space-y-2">
+      {items.map((item, i) => (
+        <button
+          key={i}
+          className="w-full flex items-center justify-between p-3 bg-white/5 rounded-xl
+                     hover:bg-white/10 cursor-pointer transition-colors text-left min-h-[48px]"
+          onClick={() => onSelect(item)}
+        >
+          <span className="font-semibold text-sm">{item[labelKey]}</span>
+          <ChevronRight size={16} className="text-white/40 shrink-0" />
+        </button>
+      ))}
+    </div>
+  </div>
+);
 
 export default GlobalSearch;

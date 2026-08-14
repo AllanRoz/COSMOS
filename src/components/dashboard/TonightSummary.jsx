@@ -7,55 +7,37 @@ const TonightSummary = () => {
   const { moon, sunrise, sunset, moonRise, moonSet } = ASTRONOMY_DATA;
 
   return (
-    <div className="bg-cosmos-slate/50 p-8 rounded-3xl border border-white/10 backdrop-blur-md">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h2 className="text-3xl font-bold flex items-center gap-3">
-            <Moon className="text-cosmos-accent" /> Tonight's Sky
-          </h2>
-          <p className="text-white/40">What's visible in your area</p>
+    <div className="bg-cosmos-slate/50 p-5 sm:p-8 rounded-3xl border border-white/10 backdrop-blur-md">
+      {/* Header */}
+      <div className="mb-6">
+        <h2 className="text-xl sm:text-3xl font-bold flex items-center gap-3">
+          <Moon className="text-cosmos-accent shrink-0" size={22} />
+          Tonight's Sky
+        </h2>
+        <p className="text-white/40 text-sm mt-1">What's visible in your area</p>
+      </div>
+
+      {/* Info row — stack on mobile, 3-col on md */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+        <div className="space-y-3">
+          <InfoRow icon={Sunrise} label={`Sunrise: ${sunrise}`} />
+          <InfoRow icon={Sunset}  label={`Sunset: ${sunset}`} />
+        </div>
+        <div className="space-y-3">
+          <InfoRow icon={Moon}  label={`Moon Phase: ${moon.phase}`} />
+          <InfoRow icon={Star}  label={`Moonrise: ${moonRise} · Set: ${moonSet}`} />
+        </div>
+        <div className="space-y-3">
+          <InfoRow icon={MapPin} label={ASTRONOMY_DATA.location || 'Current Location'} />
+          <InfoRow icon={Sun}    label={`Meteor Showers: ${ASTRONOMY_DATA.meteorShowers}`} />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <Sunrise size={18} className="text-cosmos-accent" />
-            <span className="text-white/60">Sunrise: {sunrise}</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Sunset size={18} className="text-cosmos-accent" />
-            <span className="text-white/60">Sunset: {sunset}</span>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <Moon size={18} className="text-cosmos-accent" />
-            <span className="text-white/60">Moon Phase: {moon.phase}</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Star size={18} className="text-cosmos-accent" />
-            <span className="text-white/60">Moonrise: {moonRise} Â· Moonset: {moonSet}</span>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <MapPin size={18} className="text-cosmos-accent" />
-            <span className="text-white/60">{ASTRONOMY_DATA.location || 'Current Location'}</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Sun size={18} className="text-cosmos-accent" />
-            <span className="text-white/60">Meteor Showers: {ASTRONOMY_DATA.meteorShowers}</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Visible planets + events — 2-col on sm+ */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <h4 className="text-sm font-bold text-white/60 uppercase tracking-wider mb-4">Visible Planets</h4>
-          <div className="space-y-3">
+          <h4 className="text-xs font-bold text-white/60 uppercase tracking-wider mb-3">Visible Planets</h4>
+          <div className="space-y-2">
             {ASTRONOMY_DATA.planets.map((planet, i) => (
               <motion.div
                 key={i}
@@ -64,29 +46,29 @@ const TonightSummary = () => {
                 transition={{ delay: i * 0.05 }}
                 className="flex justify-between items-center p-3 bg-white/5 rounded-lg"
               >
-                <span className="font-bold">{planet.name}</span>
-                <span className="text-xs text-white/40">{planet.visibility}</span>
+                <span className="font-bold text-sm">{planet.name}</span>
+                <span className="text-xs text-white/40 text-right">{planet.visibility}</span>
               </motion.div>
             ))}
           </div>
         </div>
 
         <div>
-          <h4 className="text-sm font-bold text-white/60 uppercase tracking-wider mb-4">Upcoming Events</h4>
-          <div className="space-y-3">
+          <h4 className="text-xs font-bold text-white/60 uppercase tracking-wider mb-3">Upcoming Events</h4>
+          <div className="space-y-2">
             {ASTRONOMY_DATA.events.map((event, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="flex justify-between items-center p-3 bg-white/5 rounded-lg"
+                className="flex justify-between items-center p-3 bg-white/5 rounded-lg gap-3"
               >
-                <div>
-                  <p className="font-bold">{event.name}</p>
+                <div className="min-w-0">
+                  <p className="font-bold text-sm">{event.name}</p>
                   <p className="text-[10px] text-white/40">{event.type}</p>
                 </div>
-                <span className="text-xs text-white/60">{event.date}</span>
+                <span className="text-xs text-white/60 shrink-0">{event.date}</span>
               </motion.div>
             ))}
           </div>
@@ -95,5 +77,12 @@ const TonightSummary = () => {
     </div>
   );
 };
+
+const InfoRow = ({ icon: Icon, label }) => (
+  <div className="flex items-center gap-3">
+    <Icon size={16} className="text-cosmos-accent shrink-0" />
+    <span className="text-white/60 text-sm">{label}</span>
+  </div>
+);
 
 export default TonightSummary;

@@ -2,9 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- viewport: user-scalable=no prevents double-tap zoom issues while still respecting pinch zoom in Three.js -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>COSMOS | Explore the Universe</title>
     <link rel="icon" type="image/x-icon" href="/cosmos.svg" />
+
+    <!-- iOS web-app hints -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#020617" />
+
+    <!-- Prevent flash of unstyled content -->
+    <style>
+      html, body { background: #020617; }
+    </style>
   </head>
   <body class="bg-cosmos-black text-cosmos-white">
     <div id="root"></div>
